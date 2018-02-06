@@ -53,6 +53,4 @@ public class MyDate {
 	public void setDay(int day) {
 		this.day = day;
 	}
-	
-	
 }
