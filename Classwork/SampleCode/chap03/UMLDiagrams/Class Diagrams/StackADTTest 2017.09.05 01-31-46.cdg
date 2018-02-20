@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ClassDiagram name="StackADTTest">
+  <ClassDiagramComponents>
+    <Class name="EmptyCollectionException" package="jsjf.exceptions" visibility="public" xPosition="527.0" yPosition="20.0">
+      <Fields/>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="String" name="collection"/>
+        </Constructor>
+      </Constructors>
+      <Methods/>
+    </Class>
+    <Class name="ArrayStack" package="jsjf" visibility="public" xPosition="416.0" yPosition="226.0">
+      <Fields>
+        <Field name="DEFAULT_CAPACITY" type="int" visibility="private" isStatic="true" isFinal="true"/>
+        <Field name="top" type="int" visibility="private"/>
+        <Field name="stack" type="T[]" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+        <Constructor visibility="public">
+          <Argument type="int" name="initialCapacity"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="push" returnType="void" visibility="public">
+          <Argument type="T" name="element"/>
+        </Method>
+        <Method name="expandCapacity" returnType="void" visibility="private"/>
+        <Method name="pop" returnType="T" visibility="public"/>
+        <Method name="peek" returnType="T" visibility="public"/>
+        <Method name="isEmpty" returnType="boolean" visibility="public"/>
+        <Method name="size" returnType="int" visibility="public"/>
+        <Method name="toString" returnType="String" visibility="public"/>
+      </Methods>
+    </Class>
+    <Interface name="StackADT" package="jsjf" visibility="public" xPosition="72.0" yPosition="288.0">
+      <Methods>
+        <Method name="push" returnType="void" visibility="public">
+          <Argument type="T" name="element"/>
+        </Method>
+        <Method name="pop" returnType="T" visibility="public"/>
+        <Method name="peek" returnType="T" visibility="public"/>
+        <Method name="isEmpty" returnType="boolean" visibility="public"/>
+        <Method name="size" returnType="int" visibility="public"/>
+        <Method name="toString" returnType="String" visibility="public"/>
+      </Methods>
+    </Interface>
+  </ClassDiagramComponents>
+  <ClassDiagramRelations>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="jsjf.ArrayStack" target="jsjf.StackADT"/>
+  </ClassDiagramRelations>
+</ClassDiagram>
