@@ -42,31 +42,24 @@ public class ProgrammingAssignment2 {
             //create stack for tower comparison
             Stack<Integer> stack = new Stack();
             
-            // try: j = 1, allow whole stack to pop, do not save [0]
-            for (int j = 0; j < towerHeights.size(); j++)   {             
-                if(!stack.isEmpty())   {   
-                    //not first element, pop off all element values smaller than current element except [0]
-                    while(towerHeights.get(j) > towerHeights.get(stack.peek()) && stack.peek() != 0)   {
+            //1 initialized due range min value as 1
+            for (int j = 1; j <= towerHeights.size(); j++)   {                
+                    //not first element, pop off all element values smaller than current element
+                    while(!stack.isEmpty() && towerHeights.get(j -1) > towerHeights.get(stack.peek() -1))   {
                             stack.pop();
                     } 
-                    //if all other elements except [0] were popped, and [0] is smaller, [j] is now the tallest tower
-                    //keep [0] element in case another taller tower appears later
-                    if (stack.peek() == 0 && towerHeights.get(j) > towerHeights.get(stack.peek()))   {
-                        // range in this case is the full length of the array of to this point
-                        System.out.print ((j + 1) + " ");
+                    
+                    //[j] is taller than all current towers
+                    if (stack.isEmpty())   {
+                        // range is full value of array up to this point
+                        System.out.print ((j) + " ");
                     }      
                     else   {
-                        //otherwise a taller tower has been found, range = [current place] - [taller tower]
+                        //taller tower has been found, range = [current place] - [taller tower]
                         System.out.print ((j - stack.peek()) + " ");
                     }
                     //add to stack for comparison
-                    stack.push(j);
-                } else
-                {
-                    //stack is empty, first elements range is always one, store it on stack
-                    System.out.print(1 + " ");
-                    stack.push(j);
-                }                   
+                    stack.push(j);                 
             } 
             System.out.println();
         }
