@@ -33,33 +33,33 @@ public class ProgrammingAssignment2 {
             ArrayList<Integer> towerHeights = new ArrayList<>(numOfTowers);
 
             //read in tower heights to array
-            String[] loc = sc.nextLine().split(" ");            
+            String[] loc = sc.nextLine().split(" "); 
             for (int j = 0; j < numOfTowers; j++)  {
                 towerHeights.add(Integer.parseInt(loc[j]));  
             } 
             
             System.out.println("Case:" + (i + 1));
+            
             //create stack for tower comparison
             Stack<Integer> stack = new Stack();
-            
             //1 initialized due range min value as 1
             for (int j = 1; j <= towerHeights.size(); j++)   {                
-                    //not first element, pop off all element values smaller than current element
-                    while(!stack.isEmpty() && towerHeights.get(j -1) > towerHeights.get(stack.peek() -1))   {
-                            stack.pop();
-                    } 
-                    
-                    //[j] is taller than all current towers
-                    if (stack.isEmpty())   {
-                        // range is full value of array up to this point
-                        System.out.print ((j) + " ");
-                    }      
-                    else   {
-                        //taller tower has been found, range = [current place] - [taller tower]
-                        System.out.print ((j - stack.peek()) + " ");
-                    }
-                    //add to stack for comparison
-                    stack.push(j);                 
+                //not first element, pop off all elements smaller than current element
+                while(!stack.isEmpty() && towerHeights.get(j -1) > towerHeights.get(stack.peek() -1))   {
+                        stack.pop();
+                }                    
+                //[j] is taller than all current towers
+                if (stack.isEmpty())   {
+                    //range is full value of array up to this point
+                    System.out.print ((j) + " ");
+                }      
+                //taller tower has been found
+                else   {
+                    //range = [current place] - [taller tower]
+                    System.out.print ((j - stack.peek()) + " ");
+                }
+                //add to stack for comparison
+                stack.push(j);                 
             } 
             System.out.println();
         }
