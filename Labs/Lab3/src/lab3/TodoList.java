@@ -17,13 +17,7 @@ public class TodoList {
         todo = new ArrayList<>();
     }
     
-    public int getSize() {return todo.size();}
-    
-    public void things()   {
-        //Comparator<Task> sortKey = Comparator.comparing(getName(), String.CASE_INSENSITIVE_ORDER);
-        
-        //Collections.sort(todo, sortKey);
-    }
+    public int getSize() {return todo.size();}    
     
     public void addTask()   {
         Task newTask = new Task();
@@ -37,7 +31,7 @@ public class TodoList {
         todo.add(newTask);
         if(!todo.isEmpty())
             System.out.println("Task added");
-        System.out.println("1: " + newTask.toString());
+        System.out.println((todo.indexOf(newTask) + 1) + ": " + newTask.toString());
     }
     
     public void editTask(int taskNum)   {       
@@ -65,18 +59,60 @@ public class TodoList {
         task.setCompleted(enterCompleted());
     }       
     
-    public int getTaskNum()   {
-        Scanner sc = new Scanner (System.in);
-        int taskNum;
-        System.out.print(toString());
-        System.out.print("Enter task number or 0 to return to main menu: ");
-        taskNum = tryParseInt(sc.nextLine());         
-        return taskNum;
-    }
-    
     public void deleteTask(int taskNum)   {
         todo.remove(taskNum);
         System.out.println("Task Deleted");
+    }
+    
+    //Get Help
+    public void showListByPriority(boolean hideCompleted)   {
+        Collections.sort(todo, new Comparator<Task>()  {
+            public int compare(Task one, Task two)   {
+                return one.getPriority().compareTo(two.getPriority());
+            } 
+        });
+        Collections.reverse(todo);
+        
+        System.out.print(toString(hideCompleted));
+        System.out.println("Press any key to continue...");
+        new Scanner(System.in).nextLine();
+    }
+    
+    //Get Help
+    public void showListByDueDate(boolean hideCompleted)   {
+        Collections.sort(todo, new Comparator<Task>()  {
+            public int compare(Task one, Task two)   {
+                return one.getDate().compareTo(two.getDate());
+            } 
+        });
+        //Collections.reverse(todo);
+        
+        System.out.print(toString(hideCompleted));
+        System.out.println("Press any key to continue...");
+        new Scanner(System.in).nextLine();
+    }
+    
+    public boolean toggleCompletedTasks()   {
+        boolean choice;
+        Scanner sc = new Scanner(System.in);
+        while(true)    {
+            
+            System.out.print("Show completed tasks?(Y/N) ");
+            String str = sc.nextLine();
+            if(str.equalsIgnoreCase("y"))  {
+                System.out.println("Completed tasks will be shown");
+                choice = false;
+                break;
+            }
+            else if (str.equalsIgnoreCase("n"))   {
+                System.out.println("Completed tasks will not be shown");
+                choice = true;
+                break;
+            }
+            else
+                System.out.println("Invalid Entry");
+        }
+        return choice;
     }
     
     public void loadList(String fileName)   {
@@ -126,19 +162,30 @@ public class TodoList {
                 else
                     outFile.println("n");               
             }
-            outFile.close();          
-            //outFile.print(toString());       
+            outFile.close();                 
         } catch (IOException e)   {        
         }
     }
     
-    @Override 
-    public String toString()   {
+     public int getTaskNum(boolean hideCompleted)   {
+        Scanner sc = new Scanner (System.in);
+        int taskNum;
+        System.out.print(toString(hideCompleted));
+        System.out.print("Enter task number or 0 to return to main menu: ");
+        taskNum = tryParseInt(sc.nextLine());         
+        return taskNum;
+    }
+        
+    public String toString(boolean hideCompleted)   {
         
         String str = "";
         
         for(Integer i = 1; i <= todo.size(); i++)   {
-            str += i.toString() + ": " + todo.get(i-1).toString() + "\n";
+            if(hideCompleted && !todo.get(i - 1).getCompleted())
+                str += i.toString() + ": " + todo.get(i-1).toString() + "\n";
+            
+            if(!hideCompleted)
+                str += i.toString() + ": " + todo.get(i-1).toString() + "\n";
         }
               
         return str;

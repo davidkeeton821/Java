@@ -9,7 +9,7 @@ package lab3;
  *
  * @author David
  */
-public class Task {
+public class Task { //implements Comparable<Task>{
     private String name;
     private Integer priority;
     private Date date;
@@ -25,6 +25,10 @@ public class Task {
         this.date = date;
         this.completed = completed;
     }
+    
+//    public int compareTo(Task other)   {
+//       return getName().compareTo(other.name);
+//    }
     
     //Get name
     public String getName(){return name;}

@@ -16,22 +16,17 @@ public class Lab3 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO input from keyboard
-        // todo input from save file
-        // todo input from keyboard
-        // todo input from saved file
-        
         //readme file if needed
-        //classes: date task todolist
+        //Figure out sorting issues
+        //move validation for gettasknumber from lab3 to method in todolist
 
-        //List<Task> todo = new ArrayList<>();
         TodoList td = new TodoList();
         int taskNum;
+        boolean hideCompleted = false;
         boolean choice = true;
         Scanner sc = new Scanner(System.in);
         int menu;
         do  {
-            System.out.print(td.toString());
             displayMenu();
             menu = TryParseInt(sc.nextLine());
                            
@@ -39,32 +34,27 @@ public class Lab3 {
                 case 1:td.addTask();  
                     break;
                 case 2:
-                    taskNum =  td.getTaskNum();
+                    taskNum =  td.getTaskNum(hideCompleted);
                     if(taskNum > 0 && taskNum <= td.getSize())
                         td.editTask(taskNum - 1);
                     if(taskNum > td.getSize() || taskNum < 0)
                         System.out.println("Invalid Entry");
                     break;
                 case 3:
-                    taskNum = td.getTaskNum();
+                    taskNum = td.getTaskNum(hideCompleted);
                     if(taskNum > 0 && taskNum <= td.getSize())
                         td.deleteTask(taskNum - 1);
                     if(taskNum > td.getSize() || taskNum < 0)
                         System.out.println("Invalid Entry");
                     break;
                 case 4:
-                    //showListByPriority();
+                    td.showListByPriority(hideCompleted);
                     break;
                 case 5:
-                    //showListByDueDate();
+                    td.showListByDueDate(hideCompleted);
                     break;
                 case 6:
-                    //Find best place to put bool value for hideCompleted, Lab3 or Todo Class
-                    //edit getTaskNum to have parameter for bool hideCompleted
-                    //edit toString to have if(hideCompleted && task.getCompleted)
-                    //    clause for printing toString
-                    //find all places that need paramter passed in and pass it
-                    //toggleCompletedTasks();
+                    hideCompleted = td.toggleCompletedTasks();
                     break;
                 case 7:                   
                     td.saveList(getFileFromUser());
@@ -97,7 +87,7 @@ public class Lab3 {
         System.out.println("\t3. Remove a task");
         System.out.println("\t4. Display tasks by priority");
         System.out.println("\t5. Display tasks by due date");
-        System.out.println("\t6. Filer/Unfilter comlete tasks");
+        System.out.println("\t6. Filter/Unfilter comlpete tasks");
         System.out.println("\t7. Save To Do List");
         System.out.println("\t8. Load To Do List");
         System.out.println("\t9. Quit");

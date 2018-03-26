@@ -9,17 +9,33 @@ package lab3;
  *
  * @author David
  */
-public class Date {
+public class Date implements Comparable<Date> {
     private Integer day;
     private Integer month;
     private Integer year;
     
-    public Date() {}
+    public Date(){}
     
     public Date(Integer month, Integer day, Integer year)   {
         this.day = day;
         this.month = month;
         this.year = year;
+    }
+    
+    @Override
+    public int compareTo(Date other)   {
+        int compare = -1;
+        if (getYear() > other.getYear())
+            compare = 1;
+        if (getYear().equals(other.getYear()) && getMonth() > other.getMonth())
+            compare = 1;
+        if (getYear().equals(other.getYear()) && getMonth().equals(other.getMonth())
+                && getDay() > other.getDay())
+            compare = 1;
+        if (getYear().equals(other.getYear()) && getMonth().equals(other.getMonth())
+                && getDay().equals(other.getDay()))
+            compare = 0;       
+        return compare;
     }
     
     //Get day
