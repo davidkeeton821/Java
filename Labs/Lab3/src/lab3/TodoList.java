@@ -79,36 +79,57 @@ public class TodoList {
         System.out.println("Task Deleted");
     }
     
-    public void loadList(Scanner sc)   {
+    public void loadList(String fileName)   {
+        Scanner file = null;
         String[] str;
         String name;
         int priority;
         Date date;
         boolean completed = false;
-        while(sc.hasNext())   {
-            str = sc.nextLine().split(",");
-            
-            name = str[0];
-            priority = tryParseInt(str[1]);
-            String[] loc = str[2].split(" ");
-            date = new Date(tryParseInt(loc[0]),tryParseInt(loc[1]),tryParseInt(loc[2]));
-            
-            if(str[3].equalsIgnoreCase("y"))
-                completed = true;
-            if(str[3].equalsIgnoreCase("n"))
-                completed = false;
-            Task newTask = new Task(name, priority, date, completed);
-            
-            todo.add(newTask);
-        }
         
+        try   {
+            file = new Scanner(new FileReader(fileName));        
+            while(file.hasNext())   {
+                str = file.nextLine().split(",");
+                
+                name = str[0];
+                priority = tryParseInt(str[1]);
+                String[] loc = str[2].split(" ");
+                date = new Date(tryParseInt(loc[0]),tryParseInt(loc[1]),tryParseInt(loc[2]));
+                
+                if(str[3].equalsIgnoreCase("y"))
+                    completed = true;
+                if(str[3].equalsIgnoreCase("n"))
+                    completed = false;
+                Task newTask = new Task(name, priority, date, completed);
+            
+                todo.add(newTask);
+            }
+        } catch(IOException e)   {               
+        }       
         System.out.println("List Loaded");
     }
     
-    public void saveList(PrintWriter outFile)
+    public void saveList(String fileName)
     {
-        outFile.println("Stuff and Things");
-        //outFile.print(toString());       
+        PrintWriter outFile = null;
+        try {            
+            outFile = new PrintWriter(fileName); 
+            for(Integer i = 1; i <= todo.size(); i++)   {
+                outFile.print(todo.get(i - 1).getName() + ",");
+                outFile.print(todo.get(i - 1).getPriority().toString() + ",");
+                outFile.print(todo.get(i - 1).getDate().getMonth().toString() + " ");
+                outFile.print(todo.get(i - 1).getDate().getDay().toString() + " ");
+                outFile.print(todo.get(i - 1).getDate().getYear().toString() + ",");
+                if(todo.get(i - 1).getCompleted())
+                    outFile.println("y");
+                else
+                    outFile.println("n");               
+            }
+            outFile.close();          
+            //outFile.print(toString());       
+        } catch (IOException e)   {        
+        }
     }
     
     @Override 

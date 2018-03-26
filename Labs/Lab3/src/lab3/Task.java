@@ -11,7 +11,7 @@ package lab3;
  */
 public class Task {
     private String name;
-    private int priority;
+    private Integer priority;
     private Date date;
     private boolean completed;
     
@@ -19,7 +19,7 @@ public class Task {
     public Task(){}      
     
     //Full Constructor
-    public Task(String name, int priority, Date date, boolean completed)   {
+    public Task(String name, Integer priority, Date date, boolean completed)   {
         this.name = name;
         this.priority = priority;
         this.date = date;
@@ -32,10 +32,10 @@ public class Task {
     public void setName(String name){this.name = name;}
     
     //Get priority
-    public int getPriority(){return priority;}
+    public Integer getPriority(){return priority;}
     public String getPriorityWord() {return wordPriority(getPriority());}
     //Set Priority
-    public void setPriority(int priority){this.priority = priority;}
+    public void setPriority(Integer priority){this.priority = priority;}
     
     //Get date
     public Date getDate() { return date; }
@@ -48,7 +48,7 @@ public class Task {
     //set Completed
     public void setCompleted(boolean completed) {this.completed = completed;}
     
-    private String wordPriority(int priority)   {
+    private String wordPriority(Integer priority)   {
         switch(priority)   {
             case 1: return "Low";
             case 2: return "Moderate";
@@ -65,6 +65,7 @@ public class Task {
             return "Not Completed";
     }
     
+    @Override
     public String toString()   {
         
         return this.getName() + " | " + this.getPriorityWord() + " | " + this.getDate().toString()

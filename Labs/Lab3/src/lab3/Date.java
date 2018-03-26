@@ -10,38 +10,35 @@ package lab3;
  * @author David
  */
 public class Date {
-    private int day;
-    private int month;
-    private int year;
+    private Integer day;
+    private Integer month;
+    private Integer year;
     
     public Date() {}
     
-    public Date(int month, int day, int year)   {
+    public Date(Integer month, Integer day, Integer year)   {
         this.day = day;
         this.month = month;
         this.year = year;
     }
     
     //Get day
-    public int getDay() {return day;}
+    public Integer getDay() {return day;}
     //Set dat
-    public void setDay(int day) {this.day = day;}
+    public void setDay(Integer day) {this.day = day;}
     
     //Get month
-    public int getMonth() {return month;}
+    public Integer getMonth() {return month;}
     //Set month
-    public void setMonth(int month) {this.month = month;}
+    public void setMonth(Integer month) {this.month = month;}
     
     //Get year
-    public int getYear() {return year;}
+    public Integer getYear() {return year;}
     //Set year
-    public void setYear(int year) {this.year = year;}
+    public void setYear(Integer year) {this.year = year;}
     
+    @Override
     public String toString()   {
-        Integer day = this.day;
-        Integer month = this.month;
-        Integer year = this.year;
-        
         String monthString = "";
         
           switch(month)   {

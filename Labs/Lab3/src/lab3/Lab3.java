@@ -29,7 +29,6 @@ public class Lab3 {
         int taskNum;
         boolean choice = true;
         Scanner sc = new Scanner(System.in);
-        Scanner file = null;
         int menu;
         do  {
             System.out.print(td.toString());
@@ -60,23 +59,18 @@ public class Lab3 {
                     //showListByDueDate();
                     break;
                 case 6:
+                    //Find best place to put bool value for hideCompleted, Lab3 or Todo Class
+                    //edit getTaskNum to have parameter for bool hideCompleted
+                    //edit toString to have if(hideCompleted && task.getCompleted)
+                    //    clause for printing toString
+                    //find all places that need paramter passed in and pass it
                     //toggleCompletedTasks();
                     break;
-                case 7:
-                    try {
-                        PrintWriter outFile = new PrintWriter(getFileFromUser());
-                        td.saveList(outFile);
-                    } catch (IOException e)   {
-                        System.out.println("Invalid entry");
-                    }
+                case 7:                   
+                    td.saveList(getFileFromUser());
                     break;              
-                case 8:
-                    try   {
-                        file = new Scanner(new FileReader(getFileFromUser()));             
-                        td.loadList(file);    
-                    } catch (IOException e)   {             
-                        System.out.println("Invalid entry");
-                    }                 
+                case 8:                               
+                    td.loadList(getFileFromUser());                                      
                     break;
                 case 9:
                     choice = false;
