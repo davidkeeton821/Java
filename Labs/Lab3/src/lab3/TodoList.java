@@ -12,12 +12,17 @@ import java.io.*;
  */
 public class TodoList {
     private final List<Task> todo;
+    private boolean hideCompleted;
     
     public TodoList( )   {
         todo = new ArrayList<>();
+        hideCompleted = false;
     }
-    
-    public int getSize() {return todo.size();}    
+     
+    public boolean getHideCompleted() { return hideCompleted; }
+    public void setHideComplete(boolean hideCompleted)    {
+        this.hideCompleted = hideCompleted;
+    }
     
     public void addTask()   {
         Task newTask = new Task();
@@ -34,38 +39,41 @@ public class TodoList {
         System.out.println((todo.indexOf(newTask) + 1) + ": " + newTask.toString());
     }
     
-    public void editTask(int taskNum)   {       
-        System.out.println("Edit Task");  
-        Task task = todo.get(taskNum);
+    public void editTask(int taskNum)   { 
+        if(taskNum > 0)    {            
+            System.out.println("Edit Task");  
+            Task task = todo.get(taskNum);
         
-        System.out.println("Current name: " + task.getName());
-        String newName = enterName(true);
-        if(!newName.isEmpty())
-            task.setName(newName);             
+            System.out.println("Current name: " + task.getName());
+            String newName = enterName(true);
+            if(!newName.isEmpty())
+                task.setName(newName);             
         
-        System.out.println("Current priority: " + task.getPriorityWord());
-        int newPriority = enterPriority(true);
-        if(newPriority != 0)
-            task.setPriority(newPriority);
+            System.out.println("Current priority: " + task.getPriorityWord());
+            int newPriority = enterPriority(true);
+            if(newPriority != 0)
+                task.setPriority(newPriority);
 
-        System.out.print("Current due Date: ");  
-        System.out.println(task.getDate().toString());
-        Date newDate = enterDate(true);
-        if (newDate.getDay() != 0 && newDate.getMonth() != 0 && newDate.getYear() != 0)
-            task.setDate(newDate); 
+            System.out.print("Current due Date: ");  
+            System.out.println(task.getDate().toString());
+            Date newDate = enterDate(true);
+            if (newDate.getDay() != 0 && newDate.getMonth() != 0 && newDate.getYear() != 0)
+                task.setDate(newDate); 
         
-        System.out.print("Current Completion Status: ");
-        System.out.println(task.getCompletedWord());
-        task.setCompleted(enterCompleted());
+            System.out.print("Current Completion Status: ");
+            System.out.println(task.getCompletedWord());
+            task.setCompleted(enterCompleted());
+        }
     }       
     
     public void deleteTask(int taskNum)   {
-        todo.remove(taskNum);
-        System.out.println("Task Deleted");
+        if(taskNum > 0)   {
+            todo.remove(taskNum);
+            System.out.println("Task Deleted");
+        }
     }
     
-    //Get Help
-    public void showListByPriority(boolean hideCompleted)   {
+    public void showListByPriority()   {
         Collections.sort(todo, new Comparator<Task>()  {
             public int compare(Task one, Task two)   {
                 return one.getPriority().compareTo(two.getPriority());
@@ -73,27 +81,24 @@ public class TodoList {
         });
         Collections.reverse(todo);
         
-        System.out.print(toString(hideCompleted));
+        System.out.print(toString());
         System.out.println("Press any key to continue...");
         new Scanner(System.in).nextLine();
-    }
-    
-    //Get Help
-    public void showListByDueDate(boolean hideCompleted)   {
+    }   
+
+    public void showListByDueDate()   {
         Collections.sort(todo, new Comparator<Task>()  {
             public int compare(Task one, Task two)   {
                 return one.getDate().compareTo(two.getDate());
             } 
         });
-        //Collections.reverse(todo);
         
-        System.out.print(toString(hideCompleted));
+        System.out.print(toString());
         System.out.println("Press any key to continue...");
         new Scanner(System.in).nextLine();
     }
     
-    public boolean toggleCompletedTasks()   {
-        boolean choice;
+    public void toggleCompletedTasks()   {
         Scanner sc = new Scanner(System.in);
         while(true)    {
             
@@ -101,18 +106,17 @@ public class TodoList {
             String str = sc.nextLine();
             if(str.equalsIgnoreCase("y"))  {
                 System.out.println("Completed tasks will be shown");
-                choice = false;
+                hideCompleted = false;
                 break;
             }
             else if (str.equalsIgnoreCase("n"))   {
                 System.out.println("Completed tasks will not be shown");
-                choice = true;
+                hideCompleted = true;
                 break;
             }
             else
                 System.out.println("Invalid Entry");
         }
-        return choice;
     }
     
     public void loadList(String fileName)   {
@@ -167,16 +171,22 @@ public class TodoList {
         }
     }
     
-     public int getTaskNum(boolean hideCompleted)   {
+    public int getTaskNum()   {
         Scanner sc = new Scanner (System.in);
         int taskNum;
-        System.out.print(toString(hideCompleted));
+        while(true)   {
+        System.out.print(toString());
         System.out.print("Enter task number or 0 to return to main menu: ");
-        taskNum = tryParseInt(sc.nextLine());         
-        return taskNum;
+        taskNum = tryParseInt(sc.nextLine());   
+            if(taskNum >= 0 && taskNum <= todo.size())
+                return taskNum - 1;
+            if(taskNum > todo.size() || taskNum < 0)
+                System.out.println("Invalid Entry");   
+        }        
     }
         
-    public String toString(boolean hideCompleted)   {
+    @Override
+    public String toString()   {
         
         String str = "";
         

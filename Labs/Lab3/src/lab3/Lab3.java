@@ -17,12 +17,8 @@ public class Lab3 {
      */
     public static void main(String[] args) {
         //readme file if needed
-        //Figure out sorting issues
-        //move validation for gettasknumber from lab3 to method in todolist
 
         TodoList td = new TodoList();
-        int taskNum;
-        boolean hideCompleted = false;
         boolean choice = true;
         Scanner sc = new Scanner(System.in);
         int menu;
@@ -34,27 +30,19 @@ public class Lab3 {
                 case 1:td.addTask();  
                     break;
                 case 2:
-                    taskNum =  td.getTaskNum(hideCompleted);
-                    if(taskNum > 0 && taskNum <= td.getSize())
-                        td.editTask(taskNum - 1);
-                    if(taskNum > td.getSize() || taskNum < 0)
-                        System.out.println("Invalid Entry");
+                    td.editTask(td.getTaskNum());                  
                     break;
                 case 3:
-                    taskNum = td.getTaskNum(hideCompleted);
-                    if(taskNum > 0 && taskNum <= td.getSize())
-                        td.deleteTask(taskNum - 1);
-                    if(taskNum > td.getSize() || taskNum < 0)
-                        System.out.println("Invalid Entry");
+                    td.deleteTask(td.getTaskNum());
                     break;
                 case 4:
-                    td.showListByPriority(hideCompleted);
+                    td.showListByPriority();
                     break;
                 case 5:
-                    td.showListByDueDate(hideCompleted);
+                    td.showListByDueDate();
                     break;
                 case 6:
-                    hideCompleted = td.toggleCompletedTasks();
+                    td.toggleCompletedTasks();
                     break;
                 case 7:                   
                     td.saveList(getFileFromUser());
@@ -87,7 +75,7 @@ public class Lab3 {
         System.out.println("\t3. Remove a task");
         System.out.println("\t4. Display tasks by priority");
         System.out.println("\t5. Display tasks by due date");
-        System.out.println("\t6. Filter/Unfilter comlpete tasks");
+        System.out.println("\t6. Filter/Unfilter complete tasks");
         System.out.println("\t7. Save To Do List");
         System.out.println("\t8. Load To Do List");
         System.out.println("\t9. Quit");
