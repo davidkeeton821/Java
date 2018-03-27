@@ -1,12 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package lab3;
 
 /**
- *
  * @author David
  */
 public class Date implements Comparable<Date> {
@@ -14,14 +8,17 @@ public class Date implements Comparable<Date> {
     private Integer month;
     private Integer year;
     
+    //Default constructor
     public Date(){}
     
+    //Full Constructor
     public Date(Integer month, Integer day, Integer year)   {
         this.day = day;
         this.month = month;
         this.year = year;
     }
     
+    //implementation of compareTo for comparing dates to other dates for sorting
     @Override
     public int compareTo(Date other)   {
         int compare = -1;
@@ -53,6 +50,71 @@ public class Date implements Comparable<Date> {
     //Set year
     public void setYear(Integer year) {this.year = year;}
     
+    //validate date entry based on calendar dates
+    public boolean validate()   {
+        boolean valid = true;
+        
+        switch(month)   {
+            case 1: 
+                if(day > 31 || day < 1)
+                    valid = false;
+                break;
+            case 2: 
+                if(day > 28 || day < 1)
+                    valid = false;
+                break;
+            case 3:
+                if(day > 31 || day < 1)
+                    valid = false;
+                break;
+            case 4:
+                if(day > 30 || day < 1)
+                    valid = false;
+                break;
+            case 5:   
+                if(day > 31 || day < 1)
+                    valid = false;
+                break;
+            case 6:
+                if(day > 30 || day < 1)
+                    valid = false;
+                break;
+            case 7:
+                if(day > 31 || day < 1)
+                    valid = false;
+                break;
+            case 8:
+                if(day > 31 || day < 1)
+                    valid = false;
+                break;
+            case 9:
+                if(day > 30 || day < 1)
+                    valid = false;
+                break;
+            case 10:
+                if(day > 31 || day < 1)
+                    valid = false;
+                break;
+            case 11:
+                if(day > 30 || day < 1)
+                    valid = false;
+                break;
+            case 12: 
+                if(day > 31 || day < 1)
+                    valid = false;
+                break;
+            default: valid = false;    
+        }        
+        if(year < 1)
+            valid = false;
+        
+        if(!valid)
+            System.out.println("Invalid date entry");
+        
+        return valid;
+    }
+    
+    //output Date
     @Override
     public String toString()   {
         String monthString = "";
@@ -83,8 +145,7 @@ public class Date implements Comparable<Date> {
             case 12: monthString = "December";
                 break;
             default: break;
-        }      
-        
+        }             
         return monthString + " " + day.toString() + " " + year.toString();
     }
 }

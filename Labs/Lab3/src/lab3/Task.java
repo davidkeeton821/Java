@@ -9,7 +9,7 @@ package lab3;
  *
  * @author David
  */
-public class Task { //implements Comparable<Task>{
+public class Task {
     private String name;
     private Integer priority;
     private Date date;
@@ -25,10 +25,6 @@ public class Task { //implements Comparable<Task>{
         this.date = date;
         this.completed = completed;
     }
-    
-//    public int compareTo(Task other)   {
-//       return getName().compareTo(other.name);
-//    }
     
     //Get name
     public String getName(){return name;}
@@ -52,6 +48,7 @@ public class Task { //implements Comparable<Task>{
     //set Completed
     public void setCompleted(boolean completed) {this.completed = completed;}
     
+    //convert number priority to string representation
     private String wordPriority(Integer priority)   {
         switch(priority)   {
             case 1: return "Low";
@@ -62,6 +59,7 @@ public class Task { //implements Comparable<Task>{
         }
     } 
     
+    //covert completed to string representation
     private String wordCompleted(boolean completed)   {
         if(completed)
             return "Completed";
@@ -69,6 +67,7 @@ public class Task { //implements Comparable<Task>{
             return "Not Completed";
     }
     
+    //output Task
     @Override
     public String toString()   {
         

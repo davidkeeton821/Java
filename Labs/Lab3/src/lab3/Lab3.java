@@ -16,12 +16,15 @@ public class Lab3 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        //readme file if needed
 
+        //Declare TodoListClass
         TodoList td = new TodoList();
+        
+        //Main menu variable declarations
         boolean choice = true;
         Scanner sc = new Scanner(System.in);
         int menu;
+        
         do  {
             displayMenu();
             menu = TryParseInt(sc.nextLine());
